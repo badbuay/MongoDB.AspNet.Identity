@@ -18,12 +18,17 @@ namespace MongoDB.AspNet.Identity
         /// <returns>The unique key for the user</returns>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-	    public virtual string Id { get; set; }
+        public virtual string Id { get; set; }
         /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
         /// <value>The name of the user.</value>
-		public virtual string UserName { get; set; }
+        public virtual string UserName { get; set; }
+        /// <summary>
+        /// Gets or sets the email of the user.
+        /// </summary>
+        /// <value>The email of the user.</value>
+        public virtual string EmailAddress { get; set; }
         /// <summary>
         /// Gets or sets the password hash.
         /// </summary>

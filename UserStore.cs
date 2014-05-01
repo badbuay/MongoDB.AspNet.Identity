@@ -16,8 +16,7 @@ namespace MongoDB.AspNet.Identity
     /// </summary>
     /// <typeparam name="TUser">The type of the t user.</typeparam>
     public class UserStore<TUser> : IUserLoginStore<TUser>, IUserClaimStore<TUser>, IUserRoleStore<TUser>,
-        IUserPasswordStore<TUser>, IUserSecurityStampStore<TUser>
-        where TUser : IdentityUser
+        IUserPasswordStore<TUser>, IUserSecurityStampStore<TUser>, IUserEmailStore<TUser>, IUserStore<TUser> where TUser : IdentityUser
     {
         #region Private Methods & Variables
 
@@ -542,8 +541,46 @@ namespace MongoDB.AspNet.Identity
             if (_disposed)
                 throw new ObjectDisposedException(GetType().Name);
         }
+        
+        /// <summary>
+        ///     Finds the by email asynchronous.
+        /// </summary>
+        /// <param name="email">The user's email address.</param>
+        /// <returns>Task{`0}.</returns>
+        public Task<TUser> FindByEmailAsync(string email)
+        {
+            ThrowIfDisposed();
+
+            TUser user = db.GetCollection<TUser>(collectionName).FindOne((Query.EQ("EmailAddress", email)));
+            return Task.FromResult(user);
+        }
+
+        public Task<string> GetEmailAsync(TUser user)
+        {
+            ThrowIfDisposed();
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            return Task.FromResult(user.EmailAddress);
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(TUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetEmailAsync(TUser user, string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetEmailConfirmedAsync(TUser user, bool confirmed)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
+
     }
 }
         
