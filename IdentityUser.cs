@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -28,7 +29,29 @@ namespace MongoDB.AspNet.Identity
         /// Gets or sets the email of the user.
         /// </summary>
         /// <value>The email of the user.</value>
-        public virtual string EmailAddress { get; set; }
+        public virtual string Email { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether [email confirmed].
+        /// </summary>
+        /// <value><c>true</c> if [email confirmed]; otherwise, <c>false</c>.</value>
+        public virtual bool EmailConfirmed { get; set; }
+        /// <summary>
+        /// Gets or sets the access failed count.
+        /// </summary>
+        /// <value>The access failed count.</value>
+        public virtual int AccessFailedCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [lockout enabled].
+        /// </summary>
+        /// <value><c>true</c> if [lockout enabled]; otherwise, <c>false</c>.</value>
+        public virtual bool LockoutEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lockout end date UTC.
+        /// </summary>
+        /// <value>The lockout end date UTC.</value>
+        public virtual DateTime? LockoutEndDateUtc { get; set; }
         /// <summary>
         /// Gets or sets the password hash.
         /// </summary>

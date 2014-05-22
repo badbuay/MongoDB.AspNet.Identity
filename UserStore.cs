@@ -551,7 +551,7 @@ namespace MongoDB.AspNet.Identity
         {
             ThrowIfDisposed();
 
-            TUser user = db.GetCollection<TUser>(collectionName).FindOne((Query.EQ("EmailAddress", email)));
+            TUser user = db.GetCollection<TUser>(collectionName).FindOne((Query.EQ("Email", email)));
             return Task.FromResult(user);
         }
 
@@ -561,7 +561,7 @@ namespace MongoDB.AspNet.Identity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            return Task.FromResult(user.EmailAddress);
+            return Task.FromResult(user.Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(TUser user)
