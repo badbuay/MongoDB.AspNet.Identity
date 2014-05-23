@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
 
 namespace MongoDB.AspNet.Identity
 {
@@ -16,7 +17,7 @@ namespace MongoDB.AspNet.Identity
     /// </summary>
     /// <typeparam name="TUser">The type of the t user.</typeparam>
     public class UserStore<TUser> : IUserLoginStore<TUser>, IUserClaimStore<TUser>, IUserRoleStore<TUser>,
-        IUserPasswordStore<TUser>, IUserSecurityStampStore<TUser>, IUserEmailStore<TUser>, IUserStore<TUser> where TUser : IdentityUser
+        IUserPasswordStore<TUser>, IUserSecurityStampStore<TUser>, IUserEmailStore<TUser>, IUserStore<TUser>, IQueryableUserStore<TUser,string> where TUser : IdentityUser
     {
         #region Private Methods & Variables
 
@@ -581,6 +582,15 @@ namespace MongoDB.AspNet.Identity
 
         #endregion
 
+
+        public IQueryable<TUser> Users {
+            get
+            {
+                ThrowIfDisposed();
+                return db.GetCollection<TUser>(collectionName).AsQueryable<TUser>();
+                
+            }
+        }
     }
 }
         
